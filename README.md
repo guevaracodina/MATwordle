@@ -1,4 +1,5 @@
 # MATwordle
+![MATwordle icon](https://github.com/guevaracodina/MATwordle/blob/main/MATwordle.png)
 MATLAB adaptation of Wordle https://www.powerlanguage.co.uk/wordle/
 
 Guess the hidden word in 6 tries. Each guess must be a valid 5-letter word. Hit the enter button to input. After each guess, the color of the letters will change to show how close your guess was to the word.
