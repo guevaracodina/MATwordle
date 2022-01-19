@@ -29,8 +29,8 @@ desktop = com.mathworks.mde.desk.MLDesktop.getInstance;
 desktop.closeWorkspaceBrowser;  % Close workspace window to avoid cheating
 nLetters = 5;                   % Only 5-letter words
 nGuessesMax = 6;                % Maximum number of guesses
-% rng('shuffle')
-rng(1, 'twister');              % For repeatability
+rng('shuffle')
+% rng(1, 'twister');              % For repeatability
 idxMATwordle = randi(numel(wordleAnswers));
 word2Guess = wordleAnswers(idxMATwordle);
 word2GuessChar = char(word2Guess);
