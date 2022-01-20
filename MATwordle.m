@@ -31,7 +31,8 @@ nLetters = 5;                   % Only 5-letter words
 nGuessesMax = 6;                % Maximum number of guesses
 rng('shuffle')
 % rng(1, 'twister');              % For repeatability
-idxMATwordle = randi(numel(wordleAnswers));
+% idxMATwordle = randi(numel(wordleAnswers));
+idxMATwordle = 1607;
 word2Guess = wordleAnswers(idxMATwordle);
 word2GuessChar = char(word2Guess);
 nGuesses = 0;
@@ -43,7 +44,7 @@ while nGuesses < nGuessesMax
         nGuesses+1, nGuessesMax),'s');
     if any(strcmp(myGuess, allowedGuesses)) || any(strcmp(myGuess, wordleAnswers))
         word2GuessCharCorrect = false([1 nLetters]);
-%         remainingWord2GuessChar = word2GuessChar;
+        remainingWord2GuessChar = word2GuessChar;
         colorsArray = repmat({[0,0,0]},1,nLetters); % Black
         % Check correct letter one by one
         for iLetters = 1:nLetters
@@ -55,7 +56,8 @@ while nGuesses < nGuessesMax
         remainingWord2GuessChar = word2GuessChar(~word2GuessCharCorrect);
         % Check correct letter in the wrong spot
         for iLetters = 1:nLetters
-            if any(myGuess(iLetters) == remainingWord2GuessChar)
+            if any(myGuess(iLetters) == remainingWord2GuessChar) && ~word2GuessCharCorrect(iLetters)
+                remainingWord2GuessChar(remainingWord2GuessChar==myGuess(iLetters)) = [];
                 colorsArray{iLetters} = [1,0.5,0];  % Orange
             end
         end
