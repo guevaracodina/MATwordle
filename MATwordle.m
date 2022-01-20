@@ -31,8 +31,8 @@ nLetters = 5;                   % Only 5-letter words
 nGuessesMax = 6;                % Maximum number of guesses
 rng('shuffle')
 % rng(1, 'twister');              % For repeatability
-% idxMATwordle = randi(numel(wordleAnswers));
-idxMATwordle = 1607;
+idxMATwordle = randi(numel(wordleAnswers));
+% idxMATwordle = 1607;
 word2Guess = wordleAnswers(idxMATwordle);
 word2GuessChar = char(word2Guess);
 nGuesses = 0;
