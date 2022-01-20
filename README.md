@@ -28,6 +28,7 @@ none
 
 **cprintf** available from https://www.mathworks.com/matlabcentral/fileexchange/24093-cprintf-display-formatted-colored-text-in-command-window
 
+Make sure cprintf is installed to a folder called _cprintf_, at the same level as your MATwordle folder
 _______________________________________________________________________________
 
 Copyright (C) 2022 Edgar Guevara, PhD
