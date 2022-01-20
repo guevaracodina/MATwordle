@@ -35,3 +35,4 @@ Copyright (C) 2022 Edgar Guevara, PhD
 
 _______________________________________________________________________________
 
+[![View MATwordle on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/105475-matwordle)
