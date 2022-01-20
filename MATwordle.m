@@ -7,17 +7,17 @@ function MATwordle
 % If the letter is green, then it is in the word and in the correct spot.
 % If the letter is orange, then it is in the word but in the wrong spot.
 % If the letter is black, then it is not in the word in any spot.
-% 
+%
 % SYNTAX
 % MATWORDLE
-% 
+%
 % INPUTS
 % none
-% 
+%
 % OUTPUTS
 % none
 % REQUIRED CODE
-% cprintf available from 
+% cprintf available from
 % https://www.mathworks.com/matlabcentral/fileexchange/24093-cprintf-display-formatted-colored-text-in-command-window
 % _______________________________________________________________________________
 % Copyright (C) 2022 Edgar Guevara, PhD
@@ -42,15 +42,26 @@ while nGuesses < nGuessesMax
     myGuess = input(sprintf('Guess %d of %d: ',...
         nGuesses+1, nGuessesMax),'s');
     if any(strcmp(myGuess, allowedGuesses)) || any(strcmp(myGuess, wordleAnswers))
-        % Check letter by letter
+        word2GuessCharCorrect = false([1 nLetters]);
+%         remainingWord2GuessChar = word2GuessChar;
+        colorsArray = repmat({[0,0,0]},1,nLetters); % Black
+        % Check correct letter one by one
         for iLetters = 1:nLetters
             if myGuess(iLetters) == word2GuessChar(iLetters)
-                cprintf([0,1,0], ' %c ', myGuess(iLetters));
-            elseif any(myGuess(iLetters) == word2GuessChar)
-                cprintf([1,0.5,0], ' %c ', myGuess(iLetters));
-            else
-                cprintf([0,0,0], ' %c ', myGuess(iLetters));
+                word2GuessCharCorrect(iLetters) = true;
+                colorsArray{iLetters} = [0,1,0];    % Green
             end
+        end
+        remainingWord2GuessChar = word2GuessChar(~word2GuessCharCorrect);
+        % Check correct letter in the wrong spot
+        for iLetters = 1:nLetters
+            if any(myGuess(iLetters) == remainingWord2GuessChar)
+                colorsArray{iLetters} = [1,0.5,0];  % Orange
+            end
+        end
+        % Display results
+        for iLetters = 1:nLetters
+            cprintf(colorsArray{iLetters}, ' %c ', myGuess(iLetters));
         end
         nGuesses = nGuesses + 1;
         fprintf('\n')
@@ -62,7 +73,7 @@ while nGuesses < nGuessesMax
     end
 end
 if ~gameWon
-%     fprintf('The word was %s\n', word2Guess)
+    %     fprintf('The word was %s\n', word2Guess)
     fprintf('MATwordle %d\nG A M E   O V E R\n', idxMATwordle);
 end
 end
