@@ -22,7 +22,6 @@ function MATwordle
 % _______________________________________________________________________________
 % Copyright (C) 2022 Edgar Guevara, PhD
 % _______________________________________________________________________________
-clear; close all; clc
 load('MATwordleData.mat','allowedGuesses','wordleAnswers')
 addpath(genpath('..\cprintf'))  % Uses cprintf
 desktop = com.mathworks.mde.desk.MLDesktop.getInstance;
@@ -32,7 +31,7 @@ nGuessesMax = 6;                % Maximum number of guesses
 rng('shuffle')
 % rng(1, 'twister');              % For repeatability
 idxMATwordle = randi(numel(wordleAnswers));
-% idxMATwordle = 1607;
+% idxMATwordle = 483;
 word2Guess = wordleAnswers(idxMATwordle);
 word2GuessChar = char(word2Guess);
 nGuesses = 0;
@@ -40,11 +39,10 @@ gameWon = false;
 clc
 fprintf('Welcome to MATWordle Version 0.1\nInput only %d-letter words\n', nLetters)
 while nGuesses < nGuessesMax
-    myGuess = input(sprintf('Guess %d of %d: ',...
-        nGuesses+1, nGuessesMax),'s');
+    myGuess = lower(input(sprintf('Guess %d of %d: ', nGuesses+1, nGuessesMax),'s'));
     if any(strcmp(myGuess, allowedGuesses)) || any(strcmp(myGuess, wordleAnswers))
         word2GuessCharCorrect = false([1 nLetters]);
-        remainingWord2GuessChar = word2GuessChar;
+%         remainingWord2GuessChar = word2GuessChar;
         colorsArray = repmat({[0,0,0]},1,nLetters); % Black
         % Check correct letter one by one
         for iLetters = 1:nLetters
@@ -68,11 +66,26 @@ while nGuesses < nGuessesMax
         nGuesses = nGuesses + 1;
         fprintf('\n')
         if strcmp(myGuess, word2Guess)
-            fprintf('MATwordle %d %d/%d\nCongratulations!\n', idxMATwordle, nGuesses, nGuessesMax)
+            % 1   guess - Genius
+            % 2 guesses - Magnificent
+            % 3 guesses - Impressive
+            % 4 guesses - Splendid
+            % 5 guesses - Great
+            % 6 guesses - Phew
+            congratsPhrase = {"Genius"
+            "Magnificent"
+            "Impressive"
+            "Splendid"
+            "Great"
+            "Phew"};
+            fprintf('MATwordle %d %d/%d\n%s\n', idxMATwordle, nGuesses, ...
+                nGuessesMax, congratsPhrase{nGuesses})
             gameWon = true;
             break
         end
-    end
+    else
+        fprintf ('Not in word list\n')
+    end    
 end
 if ~gameWon
     %     fprintf('The word was %s\n', word2Guess)
